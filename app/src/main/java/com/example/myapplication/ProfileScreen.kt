@@ -1,497 +1,559 @@
 package com.example.myapplication
 
 import android.content.res.Configuration
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
-import com.example.myapplication.ui.theme.ActiveGreen
-import com.example.myapplication.ui.theme.LocalBackgroundGradient
 import com.example.myapplication.ui.theme.ProfileTheme
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+// Maroon Color
+val Maroon = Color(0xFF800000)
+
+
+
 @Composable
-fun ProfileScreen() {
+fun ProfileApp() {
 
-    Scaffold(
-        containerColor = Color.Transparent,
+    val systemInDarkTheme = isSystemInDarkTheme()
 
-        topBar = {
-
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "My Profile",
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            Icons.Default.Menu,
-                            contentDescription = "Menu"
-                        )
-                    }
-                },
-
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            Icons.Default.MoreVert,
-                            contentDescription = "More"
-                        )
-                    }
-                },
-
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
-            )
-        },
+    var isDarkMode by remember {
+        mutableStateOf(systemInDarkTheme)
+    }
 
 
-        floatingActionButton = {
+    ProfileTheme(
+        darkTheme = isDarkMode
+    ) {
 
-            FloatingActionButton(
-                onClick = {},
-                containerColor = MaterialTheme.colorScheme.primary
-            ) {
-
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = "Add"
-                )
+        ProfileScreen(
+            isDarkMode = isDarkMode,
+            onThemeChange = {
+                isDarkMode = !isDarkMode
             }
-        }
+        )
+
+    }
+
+}
 
 
-    ) { padding ->
 
 
-        Box(
 
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    LocalBackgroundGradient.current
+@Composable
+fun ProfileScreen(
+
+    isDarkMode: Boolean,
+
+    onThemeChange: () -> Unit
+
+) {
+
+
+    Column(
+
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+
+                Brush.verticalGradient(
+
+                    colors = if (isDarkMode) {
+
+                        listOf(
+
+                            Color(0xFF1A0000),
+                            Color(0xFF400000),
+                            Color.Black
+
+                        )
+
+                    } else {
+
+                        listOf(
+
+                            Color(0xFFFFE6E6),
+                            Color(0xFFF5C6C6),
+                            Color.White
+
+                        )
+
+                    }
+
                 )
+
+            )
+            .padding(16.dp),
+
+
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+        verticalArrangement = Arrangement.Center
+
+    ) {
+
+
+
+        // Dark / Light Mode Button
+
+        Button(
+
+            onClick = {
+
+                onThemeChange()
+
+            },
+
+            colors = ButtonDefaults.buttonColors(
+
+                containerColor = Maroon
+
+            )
 
         ) {
 
 
-            // ☁️ SKY EMOJIS
-
             Text(
-                text = "☁️",
-                fontSize = 70.sp,
+
+                text = if (isDarkMode)
+
+                    "Light Mode"
+
+                else
+
+                    "Dark Mode",
+
+                color = Color.White
+
+            )
+
+        }
+
+
+
+
+
+        Spacer(
+
+            modifier = Modifier.height(20.dp)
+
+        )
+
+
+
+
+
+
+
+        Box(
+
+            modifier = Modifier.size(120.dp),
+
+            contentAlignment = Alignment.BottomEnd
+
+        ) {
+
+
+
+            Box(
+
                 modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(
-                        top = 30.dp,
-                        start = 10.dp
-                    )
+                    .size(120.dp)
+                    .clip(CircleShape)
+                    .background(Maroon)
+                    .border(
+                        2.dp,
+                        Color.White,
+                        CircleShape
+                    ),
+
+                contentAlignment = Alignment.Center
+
+            ) {
+
+
+                Text(
+
+                    text = "WMS",
+
+                    color = Color.White,
+
+                    style = MaterialTheme.typography.headlineSmall
+
+                )
+
+
+            }
+
+
+
+
+            // Active Status Circle
+
+            Box(
+
+                modifier = Modifier
+                    .size(28.dp)
+                    .clip(CircleShape)
+                    .background(Color.White)
+                    .padding(4.dp)
+                    .clip(CircleShape)
+                    .background(Color.Green)
+
             )
 
 
-            Text(
-                text = "☁️",
-                fontSize = 55.sp,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(
-                        top = 70.dp,
-                        end = 20.dp
-                    )
+        }
+
+
+
+
+
+        Spacer(
+
+            modifier = Modifier.height(16.dp)
+
+        )
+
+
+
+
+
+        // Name
+
+        Text(
+
+            text = "Wendy Michelle Sy",
+
+            style = MaterialTheme.typography.headlineSmall,
+
+            color = if (isDarkMode)
+
+                Color.White
+
+            else
+
+                Maroon
+
+        )
+
+
+
+
+
+        Spacer(
+
+            modifier = Modifier.height(4.dp)
+
+        )
+
+
+
+
+
+        // Section
+
+        Text(
+
+            text = "BSIT 3-2",
+
+            style = MaterialTheme.typography.titleMedium,
+
+
+            color = if (isDarkMode)
+
+                Color.LightGray
+
+            else
+
+                MaterialTheme.colorScheme.onSurfaceVariant
+
+        )
+
+
+
+
+
+        Spacer(
+
+            modifier = Modifier.height(24.dp)
+
+        )
+
+
+
+
+
+        // Information Card
+
+        Card(
+
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+
+
+            colors = CardDefaults.cardColors(
+
+                containerColor = if (isDarkMode)
+
+                    Color(0xFF2B2B2B)
+
+                else
+
+                    Color.White.copy(alpha = 0.9f)
+
             )
 
-
-            Text(
-                text = "✨",
-                fontSize = 35.sp,
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(top = 40.dp)
-            )
-
-
-            // 🌊 OCEAN EMOJIS
-
-            Text(
-                text = "🌊🌊🌊",
-                fontSize = 55.sp,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 20.dp)
-            )
-
-
-            Text(
-                text = "🐚  🫧  ⭐  🐠",
-                fontSize = 32.sp,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 90.dp)
-            )
+        ) {
 
 
 
             Column(
 
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp),
-
-                horizontalAlignment = Alignment.CenterHorizontally,
-
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                modifier = Modifier.padding(16.dp)
 
             ) {
 
 
 
-                // PROFILE IMAGE
+                InfoRow(
 
-                Box(
-                    modifier = Modifier
-                        .size(120.dp)
-                        .padding(8.dp)
-                ) {
+                    icon = Icons.Default.Person,
 
+                    label = "Full Name",
 
-                    Image(
-
-                        painter = painterResource(
-                            id = R.drawable.syprofile
-                        ),
-
-                        contentDescription = "Profile Picture",
-
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(CircleShape)
-                            .border(
-                                3.dp,
-                                MaterialTheme.colorScheme.primary,
-                                CircleShape
-                            ),
-
-                        contentScale = ContentScale.Crop
-
-                    )
-
-
-
-                    // 🟢 ACTIVE STATUS
-
-                    Box(
-
-                        modifier = Modifier
-                            .size(24.dp)
-                            .align(Alignment.BottomEnd)
-                            .clip(CircleShape)
-                            .background(ActiveGreen)
-                            .border(
-                                2.dp,
-                                Color.White,
-                                CircleShape
-                            )
-
-                    )
-
-                }
-
-
-
-
-                Text(
-
-                    text = "Wendy Michelle Sy",
-
-                    style = MaterialTheme.typography.headlineSmall,
-
-                    fontWeight = FontWeight.Bold
-
-                )
-
-
-
-                Text(
-
-                    text = "UI/UX Design",
-
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    value = "Wendy Michelle Sy"
 
                 )
 
 
 
 
+                InfoRow(
 
-                Row(
+                    icon = Icons.Default.School,
 
-                    modifier = Modifier.fillMaxWidth(),
+                    label = "Course",
 
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    value = "Bachelor of Science in Information Technology"
 
-                ) {
+                )
 
 
-                    Button(
 
-                        onClick = {},
 
-                        modifier = Modifier.weight(1f)
+                InfoRow(
 
-                    ) {
+                    icon = Icons.Default.Class,
 
-                        Text("Message")
+                    label = "Section",
 
-                    }
+                    value = "BSIT 3-2"
 
+                )
 
 
 
-                    OutlinedButton(
 
-                        onClick = {},
+                InfoRow(
 
-                        modifier = Modifier.weight(1f)
+                    icon = Icons.Default.Phone,
 
-                    ) {
+                    label = "Mobile Number",
 
-                        Text("Follow")
+                    value = "09763339493"
 
-                    }
+                )
 
-                }
 
 
 
+                InfoRow(
 
+                    icon = Icons.Default.Email,
 
-                Card(
+                    label = "Email Address",
 
-                    modifier = Modifier.fillMaxWidth(),
+                    value = "wmsy98844@liceo.edu.ph"
 
-                    shape = RoundedCornerShape(20.dp),
-
-                    colors = CardDefaults.cardColors(
-
-                        containerColor =
-                            Color.White.copy(alpha = 0.55f)
-
-                    ),
-
-                    border = BorderStroke(
-                        1.dp,
-                        Color.White.copy(alpha = 0.6f)
-                    )
-
-                ) {
-
-
-                    Row(
-
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-
-                        horizontalArrangement =
-                            Arrangement.SpaceEvenly
-
-                    ) {
-
-
-                        StatItem(
-                            "332",
-                            "Posts"
-                        )
-
-                        StatItem(
-                            "2.6k",
-                            "Followers"
-                        )
-
-                        StatItem(
-                            "67",
-                            "Following"
-                        )
-
-                    }
-
-                }
-
-
-
-
-
-                Card(
-
-                    modifier = Modifier.fillMaxWidth(),
-
-                    shape = RoundedCornerShape(20.dp),
-
-                    colors = CardDefaults.cardColors(
-
-                        containerColor =
-                            Color.White.copy(alpha = 0.55f)
-
-                    )
-
-                ) {
-
-
-                    Column(
-
-                        modifier = Modifier.padding(16.dp),
-
-                        verticalArrangement =
-                            Arrangement.spacedBy(12.dp)
-
-                    ) {
-
-
-                        ContactRow(
-                            Icons.Default.Email,
-                            "wmsy98844@liceo.edu.ph"
-                        )
-
-
-                        ContactRow(
-                            Icons.Default.LocationOn,
-                            "Cagayan de Oro City, Philippines"
-                        )
-
-                    }
-
-                }
+                )
 
 
             }
 
+
         }
 
+
     }
+
 
 }
 
 
 
 
-@Composable
-fun StatItem(
-    count: String,
-    label: String
-) {
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Text(
-            text = count,
-            fontWeight = FontWeight.Bold
-        )
-
-
-        Text(
-            text = label,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
-    }
-
-}
-
-
-
 
 @Composable
-fun ContactRow(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    detail: String
+fun InfoRow(
+
+    icon: ImageVector,
+
+    label: String,
+
+    value: String
+
 ) {
+
 
     Row(
+
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+
         verticalAlignment = Alignment.CenterVertically
+
     ) {
 
+
+
         Icon(
+
             imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
+
+            contentDescription = label,
+
+            tint = Maroon
+
         )
+
+
 
 
         Spacer(
-            modifier = Modifier.width(8.dp)
+
+            modifier = Modifier.width(16.dp)
+
         )
 
 
-        Text(
-            text = detail
-        )
+
+
+        Column(
+
+            modifier = Modifier.weight(1f)
+
+        ) {
+
+
+
+            Text(
+
+                text = label,
+
+                style = MaterialTheme.typography.labelMedium,
+
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+
+            )
+
+
+
+
+            Text(
+
+                text = value,
+
+                style = MaterialTheme.typography.bodyLarge,
+
+                color = MaterialTheme.colorScheme.onSurface
+
+            )
+
+
+        }
+
 
     }
+
 
 }
 
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun ProfilePreview() {
 
-    ProfileTheme {
-
-        ProfileScreen()
-
-    }
-
-}
-
-
-
+// Light Preview
 
 @Preview(
-    name = "Dark Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+
+    showBackground = true,
+
+    name = "Profile Light"
+
 )
+
+@Composable
+fun ProfileLightPreview() {
+
+    ProfileApp()
+
+}
+
+
+
+
+
+// Dark Preview
+
+@Preview(
+
+    showBackground = true,
+
+    name = "Profile Dark",
+
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+
+)
+
 @Composable
 fun ProfileDarkPreview() {
 
+
     ProfileTheme(
+
         darkTheme = true
+
     ) {
 
-        ProfileScreen()
+
+        ProfileScreen(
+
+            isDarkMode = true,
+
+            onThemeChange = {}
+
+        )
+
 
     }
+
 
 }
