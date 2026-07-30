@@ -68,7 +68,7 @@ val LocalBackgroundGradient = staticCompositionLocalOf {
 }
 
 @Composable
-fun ProfileTheme(
+fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

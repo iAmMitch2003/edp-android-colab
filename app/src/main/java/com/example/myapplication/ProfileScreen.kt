@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.theme.ProfileTheme
+import com.example.myapplication.ui.theme.MyApplicationTheme
 
 
 // Maroon Color
@@ -36,7 +36,7 @@ fun ProfileApp() {
     }
 
 
-    ProfileTheme(
+    MyApplicationTheme(
         darkTheme = isDarkMode
     ) {
 
@@ -537,7 +537,7 @@ fun ProfileLightPreview() {
 fun ProfileDarkPreview() {
 
 
-    ProfileTheme(
+    MyApplicationTheme(
 
         darkTheme = true
 
