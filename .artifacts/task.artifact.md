@@ -1,0 +1,4 @@
+- `[x]` Update `gradle/libs.versions.toml` (Fix Kotlin version and remove redundant plugin)
+- `[x]` Update root `build.gradle.kts` (Declare plugins for subprojects)
+- `[x]` Update `app/build.gradle.kts` (Remove `org.jetbrains.kotlin.android` and `kotlinOptions`)
+- `[x]` Run Gradle Sync to verify the fix
