@@ -4,24 +4,31 @@ plugins {
 }
 
 android {
-    namespace = "com.example.profileapp"
+    namespace = "com.example.myapplication"
+
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.example.profileapp"
+        applicationId = "com.example.myapplication"
+
         minSdk = 24
         targetSdk = 36
+
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner =
+            "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile(
+                    "proguard-android-optimize.txt"
+                ),
                 "proguard-rules.pro"
             )
         }
@@ -38,30 +45,70 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
+
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
     implementation(libs.androidx.activity.compose)
 
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(
+        platform(libs.androidx.compose.bom)
+    )
+
     implementation(libs.androidx.compose.ui)
+
     implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
+
+    implementation(
+        libs.androidx.compose.ui.tooling.preview
+    )
+
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
 
-    // MVVM / ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
+    implementation(
+        libs.androidx.compose.material.icons.core
+    )
 
-    // collectAsStateWithLifecycle()
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.10.0")
+    implementation(
+        libs.androidx.compose.material.icons.extended
+    )
+
+    implementation(
+        libs.androidx.navigation.compose
+    )
+
+    implementation(
+        "androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0"
+    )
+
+    implementation(
+        "androidx.lifecycle:lifecycle-runtime-compose:2.10.0"
+    )
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(
+        libs.androidx.junit
+    )
+
+    androidTestImplementation(
+        libs.androidx.espresso.core
+    )
+
+    androidTestImplementation(
+        platform(libs.androidx.compose.bom)
+    )
+
+    androidTestImplementation(
+        libs.androidx.compose.ui.test.junit4
+    )
+
+    debugImplementation(
+        libs.androidx.compose.ui.tooling
+    )
+
+    debugImplementation(
+        libs.androidx.compose.ui.test.manifest
+    )
 }
